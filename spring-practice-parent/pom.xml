@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ch.nydi.spring</groupId>
+	<artifactId>spring-practice-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>spring-practice-parent</name>
+	<url>http://develop.nydi.ch</url>
+
+	<modules>
+		<module>spring-practice-snippets</module>
+	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.source.version>1.6</java.source.version>
+		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+		<aspectj.version>1.6.11</aspectj.version>
+		<cglib.version>2.2.2</cglib.version>
+	</properties>
+
+	<licenses>
+		<license>
+			<name>Apache 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>nydi</id>
+			<name>Daniel Nydegger</name>
+			<email>daniel@nydi.ch</email>
+		</developer>
+	</developers>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources_local</directory>
+						<filtering>false</filtering>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>false</filtering>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>dist</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources_dist</directory>
+						<filtering>false</filtering>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>false</filtering>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+	</profiles>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<source>${java.source.version}</source>
+						<target>${java.source.version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<showDeprecation>true</showDeprecation>
+						<showWarnings>true</showWarnings>
+						<fork>true</fork>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<configuration>
+						<projectNameTemplate> [artifactId]-[version] 
+						</projectNameTemplate>
+						<wtpmanifest>true</wtpmanifest>
+						<wtpapplicationxml>true</wtpapplicationxml>
+						<wtpversion>2.0</wtpversion>
+						<manifest> ${basedir}/src/main/resources/META-INF/MANIFEST.MF
+						</manifest>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/webResources_${environment.type}</directory>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>maven.central</id>
+			<name>Maven Central</name>
+			<url>http://repo1.maven.org/maven2/</url>
+		</repository>
+		<repository>
+			<id>spring-releases</id>
+			<name>Spring Maven RELEASE Repository</name>
+			<url>http://maven.springframework.org/release</url>
+		</repository>
+		<repository>
+			<id>jboss-org</id>
+			<name>Jboss Releases</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
+		</repository>
+		<repository>
+			<id>sourceforge</id>
+			<name>sourceforge repo</name>
+			<url>http://oss.sonatype.org/content/groups/sourceforge/</url>
+		</repository>
+		<repository>
+			<id>sun.java.net</id>
+			<name>Sun Java Repository</name>
+			<url>http://download.java.net/maven/2/</url>
+		</repository>
+		<repository>
+			<id>java glassfish</id>
+			<name>java glassfish</name>
+			<url>http://download.java.net/maven/glassfish</url>
+		</repository>
+		<repository>
+			<id>dist.codehaus.org</id>
+			<name>dist.codehaus.org</name>
+			<url>http://dist.codehaus.org</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>com.springsource.repository.bundles.milestone</id>
+			<name> SpringSource Enterprise Bundle Repository - SpringSource Bundle Milestones</name>
+			<url>http://repository.springsource.com/maven/bundles/milestone/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>com.springsource.repository.bundles.snapshot</id>
+			<name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Snapshots</name>
+			<url>http://repository.springsource.com/maven/bundles/snapshot/</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>maven-repo</id>
+			<name>maven repo</name>
+			<url>http://repo1.maven.org/maven2/ 
+			</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>ibiblio-plugin-repo</id>
+			<name>ibiblio plugin repo</name>
+			<url>http://mirrors.ibiblio.org/pub/mirrors/maven2/ 
+			</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>mc-release</id>
+			<name>Local Maven repository of releases</name>
+			<url>http://mc-repo.googlecode.com/svn/maven2/releases 
+			</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>ch.nydi.spring</groupId>
+				<artifactId>spring-practice-snippets</artifactId>
+				<version>${project.version}</version>
+				<type>jar</type>
+			</dependency>
+
+			<!--standard support libraries -->
+			<!-- support for jsr 299 annotations -->
+			<dependency>
+				<groupId>javax.enterprise</groupId>
+				<artifactId>cdi-api</artifactId>
+				<version>1.0</version>
+			</dependency>
+			<!-- support for jsr 330 annotations -->
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>com.springsource.javax.inject</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<!-- needed for javax.annotation.ManagedBean, @PostConstruct, @RolesAllowed, 
+				etc -->
+			<dependency>
+				<groupId>org.glassfish</groupId>
+				<artifactId>javax.annotation</artifactId>
+				<version>3.0</version>
+			</dependency>
+			<!--standard support libraries -->
+
+			<!--Spring dependencies -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${org.springframework.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>commons-logging</artifactId>
+						<groupId>commons-logging</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-expression</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib-nodep</artifactId>
+				<version>${cglib.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aspects</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-oxm</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>${aspectj.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>${aspectj.version}</version>
+			</dependency>
+			<!--Spring dependencies -->
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>findbugs</groupId>
+			<artifactId>annotations</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<!-- *************** Logging *************** -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+	</dependencies>
+
+</project>
