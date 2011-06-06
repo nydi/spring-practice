@@ -8,4 +8,14 @@ Test class
 ch.nydi.spring.inject.primary.PrimarySupportTest
 
 More Information
-http://develop.nydi.ch/2010/12/spring-primary-bean-injection/
+http://develop.nydi.ch/2010/12/spring-primary-bean-injection
+
+
+## Spring – load multiple property based on utils properties code
+Use spring utils namespace or PropertiesFactoryBean to load properties. Extend PropertiesFactoryBean to propagate properties to system properties.
+
+Test class
+ch.nydi.spring.config.SystemPropertyFactoryTest.java
+
+More Information
+http://develop.nydi.ch/2010/12/spring-multiple-properties

@@ -31,7 +31,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Functional test to show the injection behavior if multiple implementations of one interface loaded in spring
- * application context. You will find more information about this example at
+ * application context. A more detailed description about this example you will find at
  * http://develop.nydi.ch/2010/12/spring-primary-bean-injection
  * 
  * @author Daniel Nydegger

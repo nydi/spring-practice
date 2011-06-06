@@ -2,9 +2,31 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:annotation-config />
-	<context:component-scan base-package="ch.nydi.spring"/>
+	<context:component-scan base-package="ch.nydi.spring" />
+
+	<!-- configuration for example 'Spring – load multiple property based on utils properties code' -->
+	<util:properties id="propsWitUtils" location="classpath:mybasic.properties"/>
+	
+	<bean id="someProps" class="ch.nydi.spring.config.SystemPropertiesFactoryBean">
+		<property name="propagateToSystemProperties" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:mybasic.properties</value>
+				<value>classpath:myspecific.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean class="ch.nydi.spring.config.ConfigValueBean">
+		<property name="welcome" value="#{propsWitUtils['msg.welcome']}"/>
+		<property name="dbUser" value="#{someProps['database.user']}"/>
+		<property name="dbPassword" value="#{someProps['database.password']}"/>
+	</bean>
+	
 </beans>
