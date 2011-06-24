@@ -13,10 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.nydi.spring;
+package ch.nydi.service.test;
 
-public final class TestSupport {
+import java.util.Collection;
 
-    public static final String SPRING_CONFIG_SNIPPETS_1 = "classpath:spring-practice-snippets-1.cfg.xml";
-    public static final String SPRING_CONFIG_SNIPPETS_2 = "classpath:spring-practice-snippets-2.cfg.xml";
+/**
+ * @author Daniel Nydegger
+ */
+public interface Calculator {
+
+    public Integer add(int a, int b)
+        throws Exception;
+
+    public Integer add(Collection<Integer> values);
+
+    public Double divide(double a, double b);
+
 }
