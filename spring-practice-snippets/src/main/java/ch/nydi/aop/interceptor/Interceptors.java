@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.apache.commons.lang.ArrayUtils;
 
 /**
  * An interceptor that chains other interceptors.
@@ -53,7 +54,7 @@ public final class Interceptors
      */
     public static MethodInterceptor create(final MethodInterceptor... interceptors) {
 
-        if ((null == interceptors) || (0 == interceptors.length)) {
+        if (ArrayUtils.isEmpty(interceptors)) {
             return Interceptors.EMPTY;
         }
 
