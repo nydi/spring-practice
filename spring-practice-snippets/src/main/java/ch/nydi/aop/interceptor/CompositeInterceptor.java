@@ -28,9 +28,6 @@ public class CompositeInterceptor
     private MethodInterceptor[] interceptors = new MethodInterceptor[0];
     private MethodInterceptor interceptorChain = Interceptors.EMPTY;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object invoke(MethodInvocation invocation)
         throws Throwable {

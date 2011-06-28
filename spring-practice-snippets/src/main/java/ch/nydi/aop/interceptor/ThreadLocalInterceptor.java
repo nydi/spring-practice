@@ -73,13 +73,13 @@ public class ThreadLocalInterceptor<T>
     public Object invoke(final MethodInvocation invocation)
         throws Throwable {
         // save back old value to respect multiple invoke calls during the same invocation.
-        final T oldValue = threadLocal.get();
+        final T old = threadLocal.get();
         threadLocal.set(value);
         try {
             return invocation.proceed();
         }
         finally {
-            threadLocal.set(oldValue);
+            threadLocal.set(old);
         }
     }
 }
