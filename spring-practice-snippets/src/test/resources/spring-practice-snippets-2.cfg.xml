@@ -14,14 +14,30 @@
 
 	<!-- AOP config -->
 	<aop:aspectj-autoproxy />
+	
+	<!-- declarative chained interceptor -->
+	<bean id="debugInterceptorWithComposite" class="ch.nydi.aop.interceptor.CompositeInterceptor" >
+		<property name="interceptors">
+			<list>
+				<bean class="ch.nydi.aop.interceptor.TraceInterceptor"/>
+				<bean class="ch.nydi.aop.interceptor.TimerInterceptor"/>
+			</list>
+		</property>
+	</bean>
 
+	<!-- dynamic chained interceptor -->
 	<bean id="debugInterceptor" class="ch.nydi.aop.interceptor.DebugInterceptor" />
 
 	<aop:config>
+		<!-- comment one of the advisor configuration -->
 		<aop:advisor 
 			advice-ref="debugInterceptor" 
 			pointcut="execution(public * ch.nydi.service.test.*.*(..))"
 			order="1" />
+<!-- 		<aop:advisor  -->
+<!-- 			advice-ref="debugInterceptorWithComposite"  -->
+<!-- 			pointcut="execution(public * ch.nydi.service.test.*.*(..))" -->
+<!-- 			order="1" /> -->
 	</aop:config>
-
 </beans>
+

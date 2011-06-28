@@ -20,6 +20,7 @@ import ch.nydi.spring.TestSupport;
 
 import javax.inject.Inject;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -38,17 +39,8 @@ public class InterceptorsTest {
     private BMICalculator bmiCalculator;
 
     @Test
-    public void testBasics() {
-        bmiCalculator.nix();
-        final Object o = bmiCalculator.getNull("argument of get null");
-        final Object[] oarr = bmiCalculator.getArray(new String[] { "argument of get null", "an array" });
+    public void testInvocationWithConfiguredInterceptors() {
+        final Double bmi = bmiCalculator.calculate(70d, 1.80d);
+        Assert.assertNotNull(bmi);
     }
-
-    @Test
-    public void testDebugInterceptor() {
-
-        final double bmi = bmiCalculator.calculate(70d, 1.80d);
-
-    }
-
 }

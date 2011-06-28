@@ -18,10 +18,4 @@ package ch.nydi.service.test;
 public interface BMICalculator {
 
     Double calculate(double weigth, double heigth);
-
-    void nix();
-
-    Object getNull(Object o);
-
-    Object[] getArray(Object[] oarr);
 }

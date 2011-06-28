@@ -41,28 +41,4 @@ public class BMICalculatorImpl
     public Double calculate(final double weigth, final double heigth) {
         return calculator.divide(weigth, (heigth * heigth));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void nix() {
-
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getNull(Object o) {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object[] getArray(Object[] oarr) {
-        return new String[] { "1", "2", "3" };
-    }
 }

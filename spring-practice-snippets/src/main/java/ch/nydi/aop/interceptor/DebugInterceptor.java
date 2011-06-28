@@ -40,7 +40,15 @@ public class DebugInterceptor
         throws Throwable {
 
         if (logger.isTraceEnabled()) {
-            return Interceptors.create(traceInterceptor, timerInterceptor).invoke(invocation);
+            return Interceptors.create(traceInterceptor, timerInterceptor, new MethodInterceptor() {
+
+                @Override
+                public Object invoke(MethodInvocation invocation)
+                    throws Throwable {
+                    logger.info("Greetings from a anonymous interceptor");
+                    return invocation.proceed();
+                }
+            }).invoke(invocation);
         }
 
         return invocation.proceed();
